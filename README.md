@@ -112,15 +112,26 @@ complete-library-management/
 ├── frontend/
 │   ├── public/
 │   │   ├── css/
+│   │   │   └── index.css
 │   │   ├── js/
+│   │   │   └── index.js
 │   │   ├── images/
+│   │   │   └── logo.png
 │   │   └── index.html
 │   ├── src/
 │   │   ├── components/
+│   │   │   ├── Header.js
+│   │   │   └── Footer.js
 │   │   ├── pages/
+│   │   │   ├── Home.js
+│   │   │   ├── Login.js
+│   │   │   └── Register.js
 │   │   ├── services/
+│   │   │   └── api.js
 │   │   ├── utils/
+│   │   │   └── helpers.js
 │   │   ├── hooks/
+│   │   │   └── useAuth.js
 │   │   └── App.js
 │   ├── package.json
 │   ├── tailwind.config.js
