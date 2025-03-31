@@ -1,0 +1,15 @@
+# Frontend-specific dependencies
+node_modules/
+
+# Logs
+*.log
+logs/
+
+# Build artifacts
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
