@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+
+    environment {
+        NODE_ENV = 'production'
+        DOCKER_REGISTRY = 'your-docker-registry'
+        DOCKER_IMAGE = 'your-docker-image'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    sh 'npm test'
+                }
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                script {
+                    sh 'docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${BUILD_NUMBER} .'
+                }
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                script {
+                    sh 'docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${BUILD_NUMBER}'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    sh './deployments/ci-cd/scripts/deploy.sh'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                sh 'docker rmi ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${BUILD_NUMBER}'
+            }
+        }
+    }
+}
